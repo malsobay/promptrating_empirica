@@ -14,6 +14,7 @@ Empirica.onStageStart(({ stage }) => {
   stage.set("leftImageIndex", 10);
   stage.set("rightImageIndex", 1);
   stage.set("numPairsGenerated", 0);
+  stage.set("ratings", []);
 });
 
 Empirica.onStageEnded(({ stage }) => {

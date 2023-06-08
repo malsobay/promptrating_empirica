@@ -35,9 +35,9 @@ export function ImagePairs() {
     stage.set("leftImageIndex", Math.random() < 0.5 ? "correct.png" : "wrong.png");
     stage.set("rightImageIndex", stage.get("leftImageIndex") == "correct.png" ? "wrong.png" : "correct.png");
   }
-
+  
   function chooseLeft() {
-    stage.append("ratings", {leftIndex: stage.get("leftImageIndex"), rightIndex: stage.get("rightImageIndex"), choice: "left"});
+    stage.set("ratings", [...stage.get("ratings"), {leftIndex: stage.get("leftImageIndex"), rightIndex: stage.get("rightImageIndex"), choice: "left"}]);
     if (Math.random() < 0.1) {
       isAttentionCheck();
     } else {
@@ -46,7 +46,7 @@ export function ImagePairs() {
   }
 
   function chooseRight() {
-    stage.append("ratings", {leftIndex: stage.get("leftImageIndex"), rightIndex: stage.get("rightImageIndex"), choice: "right"});
+    stage.set("ratings", [...stage.get("ratings"), {leftIndex: stage.get("leftImageIndex"), rightIndex: stage.get("rightImageIndex"), choice: "right"}]);
     if (Math.random() < 0.1) {
       isAttentionCheck();
     } else {
