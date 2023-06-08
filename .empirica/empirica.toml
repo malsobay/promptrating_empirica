@@ -1,0 +1,9 @@
+name = "promptrating_empirica"
+
+[tajriba.auth]
+srtoken = "ImoUdlWasEIhOOeA"
+
+[[tajriba.auth.users]]
+name = "Admin"
+username = "admin"
+password = "rMPbPIky"
