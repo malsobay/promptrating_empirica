@@ -5,7 +5,7 @@ Empirica.onGameStart(({ game }) => {
   const round = game.addRound({
     name: "Image Pairs",
   });
-  round.addStage({ name: "stage", duration: 9999999999 });
+  round.addStage({ name: "labeling", duration: 99999 });
 });
 
 Empirica.onRoundStart(({ round }) => {});
