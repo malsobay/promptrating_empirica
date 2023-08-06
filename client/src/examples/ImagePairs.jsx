@@ -1,20 +1,29 @@
 import {
-  Slider,
   usePlayer,
   usePlayers,
   useStage,
+  useGame
 } from "@empirica/core/player/classic/react";
 import React from "react";
-import { Avatar } from "../components/Avatar";
-import { Button } from "../components/Button";
+import imagepaths from "./imagepaths.json";
+import {sample} from "lodash";
 
 export function ImagePairs() {
   const player = usePlayer();
   const players = usePlayers();
   const stage = useStage();
-
+  const game = useGame();
+  const treatment = game.get("treatment"); 
+  const refImage = treatment.refImage;
+  const refImageURL = "https://prompteng.s3.us-east-2.amazonaws.com/reference_images/"+refImage+".jpeg"
+  
   function handleSubmit() {
     player.stage.set("submit", true);
+  }
+
+  function randomAWSImageURL(refImage) {
+    const generatedImageId = sample(imagepaths[refImage])
+    return "https://prompteng.s3.us-east-2.amazonaws.com/images/"+refImage+"_generated_image_"+generatedImageId+".png";
   }
 
   function randomInteger(min, max) {
@@ -23,21 +32,24 @@ export function ImagePairs() {
 
   function generateNewPair() {
     stage.set("numPairsGenerated", stage.get("numPairsGenerated")+1);
-    stage.set("leftImageIndex", randomInteger(1,15));
-    stage.set("rightImageIndex", randomInteger(1,15));
-    if (stage.get("leftImageIndex") === stage.get("rightImageIndex")) {
-      stage.set("rightImageIndex", randomInteger(1,15));
+    stage.set("leftImageURL", randomAWSImageURL(refImage));
+    stage.set("rightImageURL", randomAWSImageURL(refImage));
+    if (stage.get("leftImageURL") === stage.get("rightImageURL")) {
+      stage.set("rightImageURL", randomAWSImageURL(refImage));
     }
   }
 
   function isAttentionCheck() {
     stage.set("numPairsGenerated", stage.get("numPairsGenerated")+1);
-    stage.set("leftImageIndex", Math.random() < 0.5 ? "correct.png" : "wrong.png");
-    stage.set("rightImageIndex", stage.get("leftImageIndex") == "correct.png" ? "wrong.png" : "correct.png");
+    stage.set("leftImageURL", Math.random() < 0.5 ? "images/correct.png" : "images/wrong.png");
+    stage.set("rightImageURL", stage.get("leftImageURL") == "images/correct.png" ? "images/wrong.png" : "images/correct.png");
   }
   
   function chooseLeft() {
-    stage.set("ratings", [...stage.get("ratings"), {leftIndex: stage.get("leftImageIndex"), rightIndex: stage.get("rightImageIndex"), choice: "left"}]);
+    stage.set("ratings", [...stage.get("ratings"), {leftIndex: stage.get("leftImageURL"), rightIndex: stage.get("rightImageURL"), choice: "left"}]);
+    if (stage.get("leftImageURL") == "images/wrong.png") {
+      handleSubmit();
+    }
     if (Math.random() < 0.1) {
       isAttentionCheck();
     } else {
@@ -46,7 +58,10 @@ export function ImagePairs() {
   }
 
   function chooseRight() {
-    stage.set("ratings", [...stage.get("ratings"), {leftIndex: stage.get("leftImageIndex"), rightIndex: stage.get("rightImageIndex"), choice: "right"}]);
+    if (stage.get("rightImageURL") == "images/wrong.png") {
+      handleSubmit();
+    }
+    stage.set("ratings", [...stage.get("ratings"), {leftIndex: stage.get("leftImageURL"), rightIndex: stage.get("rightImageURL"), choice: "right"}]);
     if (Math.random() < 0.1) {
       isAttentionCheck();
     } else {
@@ -56,12 +71,12 @@ export function ImagePairs() {
 
   return (
     <div className="md:min-w-96 lg:min-w-128 xl:min-w-192 flex flex-col items-center space-y-10">
-      <img src="https://uploads8.wikiart.org/00243/images/clementine-hunter/2016-28-11.jpg!Large.jpg" width="300"/>
+      <img src={refImageURL} width="300"/>
       <h2>Please click the image below that most closely resembles the reference image above:</h2>
         <div className="flex">
-        <img src={"images/image_"+stage.get("leftImageIndex")} width="200" style={{margin:50}} onClick={chooseLeft}/>
+        <img src={stage.get("leftImageURL")} width="200" style={{margin:50}} onClick={chooseLeft}/>
         
-        <img src={"images/image_"+stage.get("rightImageIndex")} width="200" style={{margin:50}} onClick={chooseRight}/>
+        <img src={stage.get("rightImageURL")} width="200" style={{margin:50}} onClick={chooseRight}/>
         </div>
     </div>    
   );
