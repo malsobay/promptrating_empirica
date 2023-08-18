@@ -19,6 +19,7 @@ export function ImagePairs() {
   const maxPairsLabeled = 100; 
 
   function handleSubmit() {
+    player.set("numPairsEvaluated", stage.get("numPairsGenerated"))
     player.stage.set("submit", true);
   }
 
@@ -52,6 +53,7 @@ export function ImagePairs() {
   function chooseLeft() {
     stage.set("ratings", [...stage.get("ratings"), {leftIndex: stage.get("leftImageURL"), rightIndex: stage.get("rightImageURL"), choice: "left", timestamp: Date.now()}]);
     if (stage.get("leftImageURL") == "images/wrong.png") {
+      player.set("failedAttentionCheck", true);
       handleSubmit();
     }
     if (Math.random() < 0.1) {
@@ -63,6 +65,7 @@ export function ImagePairs() {
 
   function chooseRight() {
     if (stage.get("rightImageURL") == "images/wrong.png") {
+      player.set("failedAttentionCheck", true)
       handleSubmit();
     }
     stage.set("ratings", [...stage.get("ratings"), {leftIndex: stage.get("leftImageURL"), rightIndex: stage.get("rightImageURL"), choice: "right", timestamp: Date.now()}]);

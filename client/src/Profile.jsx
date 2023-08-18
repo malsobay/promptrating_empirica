@@ -14,6 +14,7 @@ export function Profile() {
       alert("Please complete at least "+minPairsLabeled+" pairs before submitting.");
       return;
     }
+    player.set("numPairsEvaluated", stage.get("numPairsGenerated"))
     player.stage.set("submit", true);
   }
 
