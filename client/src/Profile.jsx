@@ -26,7 +26,7 @@ export function Profile() {
   const score = stage.get("numPairsGenerated") || 0;
 
   return (
-    <div className="min-w-lg md:min-w-2xl m-x-auto px-3 py-2 text-gray-500 bg-gray-100 rounded-b-md grid grid-cols-3 items-center shadow-sm">
+    <div className="min-w-lg md:min-w-2xl m-x-auto px-3 py-2 text-gray-500 bg-gray-100 rounded-b-md grid grid-cols-3 items-center shadow-sm flex-shrink-0 overflow-auto flex-none">
       <div className="leading-tight ml-3">
         {/* <div className="text-gray-500 font-medium">
           {round ? round.get("name") : ""}

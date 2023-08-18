@@ -8,9 +8,9 @@ export function Game() {
   const game = useGame();
   return (
     <div className="h-full w-full flex">
-      <div className="h-full w-full flex flex-col">
+      <div className="h-full w-full flex flex-col space-y-5">
         <Profile />
-        <div className="h-full flex items-center justify-center">
+        <div className="h-full flex items-center justify-center overflow-auto h-auto">
           <Stage />
         </div>
       </div>

@@ -74,14 +74,21 @@ export function ImagePairs() {
   }
 
   return (
-    <div className="md:min-w-96 lg:min-w-128 xl:min-w-192 flex flex-col items-center space-y-10">
-      <img src={refImageURL} width="300"/>
-      <h2>Please click the image below that most closely resembles the reference image above:</h2>
-        <div className="flex">
-        <img src={stage.get("leftImageURL")} width="200" style={{margin:50}} onClick={chooseLeft}/>
-        
-        <img src={stage.get("rightImageURL")} width="200" style={{margin:50}} onClick={chooseRight}/>
+    <div className="md:min-w-96 lg:min-w-128 xl:min-w-192 flex flex-col items-center space-y-10 overflow-y-auto h-full">
+    
+    <div className="flex flex-col items-center justify-center w-full h-1/2 overflow-hidden">
+        <img src={refImageURL} className="object-contain h-[80%] w-full" alt="Reference Image" />
+    </div>
+
+    <div className="flex flex-col items-center w-full space-y-5 h-1/2">
+        <h2>Please click the image below that most closely resembles the reference image above:</h2>
+        <div className="flex space-x-10 overflow-hidden">
+            <img src={stage.get("leftImageURL")} className="object-contain h-[80%] w-full" style={{ flex: 1 }} onClick={chooseLeft}/>
+            <img src={stage.get("rightImageURL")} className="object-contain h-[80%] w-full" style={{ flex: 1 }} onClick={chooseRight}/>
         </div>
-    </div>    
+    </div>
+
+</div>
+
   );
 }
