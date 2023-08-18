@@ -50,7 +50,7 @@ export function ImagePairs() {
   }
   
   function chooseLeft() {
-    stage.set("ratings", [...stage.get("ratings"), {leftIndex: stage.get("leftImageURL"), rightIndex: stage.get("rightImageURL"), choice: "left"}]);
+    stage.set("ratings", [...stage.get("ratings"), {leftIndex: stage.get("leftImageURL"), rightIndex: stage.get("rightImageURL"), choice: "left", timestamp: Date.now()}]);
     if (stage.get("leftImageURL") == "images/wrong.png") {
       handleSubmit();
     }
@@ -65,7 +65,7 @@ export function ImagePairs() {
     if (stage.get("rightImageURL") == "images/wrong.png") {
       handleSubmit();
     }
-    stage.set("ratings", [...stage.get("ratings"), {leftIndex: stage.get("leftImageURL"), rightIndex: stage.get("rightImageURL"), choice: "right"}]);
+    stage.set("ratings", [...stage.get("ratings"), {leftIndex: stage.get("leftImageURL"), rightIndex: stage.get("rightImageURL"), choice: "right", timestamp: Date.now()}]);
     if (Math.random() < 0.1) {
       isAttentionCheck();
     } else {
