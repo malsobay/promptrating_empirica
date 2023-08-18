@@ -10,12 +10,18 @@ import { Button } from "./components/Button";
 
 export function Profile() {
   function handleSubmit() {
+    if(stage.get("numPairsGenerated") < minPairsLabeled) {
+      alert("Please complete at least "+minPairsLabeled+" pairs before submitting.");
+      return;
+    }
     player.stage.set("submit", true);
   }
 
   const player = usePlayer();
   const round = useRound();
   const stage = useStage();
+  const minPairsLabeled = 20; 
+
 
   const score = stage.get("numPairsGenerated") || 0;
 
@@ -39,7 +45,7 @@ export function Profile() {
             {score}
           </div>
           <h1 className="text-xs font-semibold uppercase tracking-wider leading-none text-gray-400">
-            Image pairs completed
+            Image pairs completed (min. {minPairsLabeled}, max. 100)
           </h1>
           
         </div>

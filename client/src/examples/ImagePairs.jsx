@@ -16,7 +16,8 @@ export function ImagePairs() {
   const treatment = game.get("treatment"); 
   const refImage = treatment.refImage;
   const refImageURL = "https://prompteng.s3.us-east-2.amazonaws.com/reference_images/"+refImage+".jpeg"
-  
+  const maxPairsLabeled = 100; 
+
   function handleSubmit() {
     player.stage.set("submit", true);
   }
@@ -32,6 +33,9 @@ export function ImagePairs() {
 
   function generateNewPair() {
     stage.set("numPairsGenerated", stage.get("numPairsGenerated")+1);
+    if(stage.get("numPairsGenerated") >= maxPairsLabeled) {
+      handleSubmit();
+    }
     stage.set("leftImageURL", randomAWSImageURL(refImage));
     stage.set("rightImageURL", randomAWSImageURL(refImage));
     if (stage.get("leftImageURL") === stage.get("rightImageURL")) {
