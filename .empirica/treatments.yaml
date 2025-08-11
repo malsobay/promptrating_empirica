@@ -1,19 +1,46 @@
 factors:
-  - desc: playerCount determines the number of Players are in a Game.
-    name: playerCount
-    values:
-      - value: 1
-      - value: 2
-      - value: 3
-      - value: 5
-      - value: 8
-      - value: 13
+    - name: playerCount
+      desc: playerCount determines the number of Players are in a Game.
+      values:
+        - value: 1
+        - value: 2
+        - value: 3
+        - value: 5
+        - value: 8
+        - value: 13
+    - name: refImage
+      values:
+        - value: business1
+        - value: design2
+        - value: business4
+        - value: photography1
+        - value: business2
 treatments:
-  - desc: "Single-player Game"
-    factors:
-      playerCount: 1
-    name: Solo
-  - desc: "Two-player Game"
-    factors:
-      playerCount: 2
-    name: Two Players
+    - name: Solo
+      desc: Single-player Game
+      factors:
+        playerCount: 1
+    - name: Two Players
+      desc: Two-player Game
+      factors:
+        playerCount: 2
+    - name: business1_ref
+      factors:
+        playerCount: 1
+        refImage: business1
+    - name: design2_ref
+      factors:
+        playerCount: 1
+        refImage: design2
+    - name: business4_ref
+      factors:
+        playerCount: 1
+        refImage: business4
+    - name: photography1_ref
+      factors:
+        playerCount: 1
+        refImage: photography1
+    - name: business2_ref
+      factors:
+        playerCount: 1
+        refImage: business2

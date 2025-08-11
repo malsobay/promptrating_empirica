@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@empirica/core": "1.4.6",
+    "@empirica/core": "1.6.0",
     "lodash": "^4.17.21",
     "minimist": "1.2.6",
     "ws": "^8.13.0"
